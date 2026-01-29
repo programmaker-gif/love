@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我爱你</title>
+    <style>
+        /* === Base Styles === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ADD8E6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            perspective: 1000px;
+        }
+
+        /* === 2D Heart Native Component === */
+        .heart-wrapper {
+            transform: scale(0);
+            animation: popIn 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        .heart {
+            position: relative;
+            width: min(200px, 40vmin);
+            height: min(200px, 40vmin);
+            transform: rotate(45deg);
+            animation: pulse 1.2s ease-in-out infinite 1.5s;
+            background: linear-gradient(135deg, #FF6B8A 0%, #E85A71 100%);
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FF6B8A 0%, #E85A71 100%);
+        }
+
+        .heart::before {
+            top: -50%;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: -50%;
+        }
+
+        /* === Text Phrase === */
+        .phrase {
+            font-size: clamp(28px, 8vmin, 56px);
+            color: #FFFFFF;
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(255, 255, 255, 0.5);
+            margin-top: clamp(30px, 8vmin, 60px);
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 1.6s;
+            letter-spacing: clamp(4px, 1.5vmin, 8px);
+            font-weight: bold;
+            padding: 0 20px;
+        }
+
+        /* === Animations === */
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            70% {
+                transform: scale(0.95);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: rotate(45deg) scale(1);
+            }
+            50% {
+                transform: rotate(45deg) scale(1.06);
+            }
+        }
+
+        /* === Fallback for reduced motion === */
+        @media (prefers-reduced-motion: reduce) {
+            .heart-wrapper,
+            .heart,
+            .phrase {
+                animation: none;
+                opacity: 1;
+                transform: scale(1);
+            }
+            .heart {
+                transform: rotate(45deg) scale(1);
+            }
+        }
+
+        /* === Responsive Adjustments === */
+        @media (max-width: 480px) {
+            .heart {
+                width: 35vmin;
+                height: 35vmin;
+            }
+            .phrase {
+                font-size: 24px;
+                letter-spacing: 4px;
+                margin-top: 25px;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .heart {
+                width: 38vmin;
+                height: 38vmin;
+            }
+            .phrase {
+                font-size: 36px;
+                margin-top: 40px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .heart {
+                width: 42vmin;
+                height: 42vmin;
+            }
+            .phrase {
+                font-size: 48px;
+                margin-top: 50px;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .heart {
+                width: 220px;
+                height: 220px;
+            }
+            .phrase {
+                font-size: 56px;
+                margin-top: 60px;
+            }
+        }
+
+        /* Landscape orientation on mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .heart {
+                width: 25vmin;
+                height: 25vmin;
+            }
+            .phrase {
+                font-size: 20px;
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 2D Pink-Red Heart -->
+        <div class="heart-wrapper">
+            <div class="heart"></div>
+        </div>
+        <!-- Love Phrase -->
+        <p class="phrase">我爱你</p>
+    </div>
+</body>
+</html>
